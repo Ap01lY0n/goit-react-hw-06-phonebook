@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 export const FilterContainer = styled.div`
-  margin-left: 20px;
+  margin-left: 715px;
+
 `;
 
 export const FilterLabal = styled.label`
@@ -10,6 +11,9 @@ export const FilterLabal = styled.label`
   width: 300px;
   color: #2a2a2a;
   font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  justifyContent: center;
 `;
 
 export const FilterInput = styled.input`

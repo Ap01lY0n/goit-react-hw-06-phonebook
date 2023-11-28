@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const List = styled.ul`
   margin-top: 15px;
+  margin-left: 690px;
   padding-left: 20px;
 `;
 export const ListItem = styled.li`
@@ -13,9 +14,15 @@ export const ListItem = styled.li`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: #d794e0;
+  border-radius: 15px; 
+  align-items: baseline;
+  padding-left: 10px;
+  padding-right: 10px; 
+  margin-bottom: 10px;
 `;
 export const DelBtn = styled.button`
-  margin-top: 5px;
+  margin-top: 15px;
   margin-bottom: 5px;
   border: 2px solid black;
   background-color: #ff3838;

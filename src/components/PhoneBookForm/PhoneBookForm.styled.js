@@ -4,6 +4,7 @@ import { Form, Field, ErrorMessage } from 'formik';
 export const ContactsBookForm = styled(Form)`
   display: flex;
   flex-direction: column;
+  margin-left: 700px;
 `;
 
 export const ContactsBookInput = styled(Field)`
@@ -26,9 +27,9 @@ export const Text = styled.p`
 
 export const SubmitBtn = styled.button`
   width: 250px;
-  margin-left: 20px;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-left: 40px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   border: 1px solid gray;
   background-color: white;
   font-size: 18px;

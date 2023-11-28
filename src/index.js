@@ -1,14 +1,33 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from 'components/App';
-import { ThemeProvider } from 'styled-components';
-import { GlobalStyle } from 'components/GlobalStyle';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import { PersistGate } from 'redux-persist/integration/react';
+import App from './components/App';
+import contactsReducer from './redux/contactsSlice';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <ThemeProvider theme={{}}>
+const persistConfig = {
+  key: 'root',
+  storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, contactsReducer);
+
+const store = configureStore({
+  reducer: {
+    contacts: persistedReducer,
+  },
+});
+
+const persistor = persistStore(store);
+
+ReactDOM.render(
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
       <App />
-      <GlobalStyle />
-    </ThemeProvider>
-  </React.StrictMode>
+    </PersistGate>
+  </Provider>,
+  document.getElementById('root')
 );
