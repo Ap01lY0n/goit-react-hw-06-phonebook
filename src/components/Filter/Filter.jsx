@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FilterContainer, FilterInput, FilterLabal } from './Filter.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateFilter } from '../../redux/contactsSlice';
+import { getFilter } from '../../redux/selectors';
 
-const Filter = ({ onChange }) => {
-  const [filterValue, setFilterValue] = useState('');
+const Filter = () => {
+  const dispatch = useDispatch();
+  const filterValue = useSelector(getFilter);
 
   const handleFilterChange = (evt) => {
     const newValue = evt.target.value;
-    setFilterValue(newValue);
-    onChange(newValue);
+    dispatch(updateFilter(newValue.toLowerCase().trim()));
   };
 
   return (
