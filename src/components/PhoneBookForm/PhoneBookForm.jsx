@@ -1,3 +1,4 @@
+import React from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import {
@@ -7,6 +8,9 @@ import {
   SubmitBtn,
   ValidationError,
 } from './PhoneBookForm.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from '../../redux/contactsSlice';
+import { nanoid } from 'nanoid';
 
 const PhoneBookSchema = Yup.object().shape({
   name: Yup.string().min(3, 'To short!').required('This field is required!'),
@@ -16,7 +20,31 @@ const PhoneBookSchema = Yup.object().shape({
     .required('This field is required!'),
 });
 
-export const PhoneBookForm = ({ onAddContact }) => {
+  const handleAddContact = (dispatch, contacts, newContact) => {
+  const hasContact = contacts.some(({ name }) => name.toLowerCase() === newContact.name.toLowerCase());
+  const isNumberExists = contacts.some(({ number }) => number === newContact.number);
+
+  if (hasContact) {
+    alert(`${newContact.name} is already in contacts.`);
+    return;
+  }
+
+  if (isNumberExists) {
+    alert(`${newContact.number} is already in contacts.`);
+    return;
+  }
+
+  dispatch(addContact({ ...newContact, id: nanoid() }));
+};
+
+const PhoneBookForm = () => {
+  const dispatch = useDispatch();
+  const contacts = useSelector(state => state.contacts.data);
+
+  const onFormSubmit = newContact => {
+    handleAddContact(dispatch, contacts, newContact);
+  };
+
   return (
     <Formik
       initialValues={{
@@ -25,7 +53,7 @@ export const PhoneBookForm = ({ onAddContact }) => {
       }}
       validationSchema={PhoneBookSchema}
       onSubmit={(value, helper) => {
-        onAddContact(value);
+        onFormSubmit(value);
         helper.resetForm({
           values: {
             name: '',
@@ -54,4 +82,6 @@ export const PhoneBookForm = ({ onAddContact }) => {
       </ContactsBookForm>
     </Formik>
   );
-}; 
+};
+
+export default PhoneBookForm;

@@ -15,10 +15,17 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, contactsReducer);
 
+const customMiddleware = (store) => (next) => (action) => {
+  console.log('contact added:', action);
+  return next(action);
+};
+
 const store = configureStore({
   reducer: {
     contacts: persistedReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(customMiddleware),
 });
 
 const persistor = persistStore(store);
