@@ -11,6 +11,7 @@ import contactsReducer from './redux/contactsSlice';
 const persistConfig = {
   key: 'root',
   storage,
+blacklist: ['filter']
 };
 
 const persistedReducer = persistReducer(persistConfig, contactsReducer);

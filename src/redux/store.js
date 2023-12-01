@@ -12,6 +12,7 @@ const customMiddleware = (store) => (next) => (action) => {
 const persistConfig = {
   key: 'root',
   storage,
+  blacklist: ['filter'],
 };
 
 const persistedReducer = persistReducer(persistConfig, contactsReducer);
